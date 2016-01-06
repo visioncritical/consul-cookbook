@@ -1,4 +1,4 @@
-require 'win_spec_helper'
+require 'spec_helper'
 
 describe file('C:\Program Files\consul\consul.exe') do
   it { should be_file }
