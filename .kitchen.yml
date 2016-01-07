@@ -69,5 +69,6 @@ suites:
     attributes:
       consul:
         service_user: vagrant
+        config: *default-config
     includes:
       - windows-2012r2

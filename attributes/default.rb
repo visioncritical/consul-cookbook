@@ -14,11 +14,11 @@ default['consul']['service_group'] = 'consul'
 default['consul']['config']['bag_name'] = 'secrets'
 default['consul']['config']['bag_item'] = 'consul'
 
-default['consul']['config']['path'] = join_path prefix_path, 'consul.json'
-default['consul']['config']['data_dir'] = join_path prefix_path, 'data'
-default['consul']['config']['ca_file'] = join_path prefix_path, 'ssl', 'CA', 'ca.crt'
-default['consul']['config']['cert_file'] = join_path prefix_path, 'ssl', 'certs', 'consul.crt'
-default['consul']['config']['key_file'] = join_path prefix_path, 'ssl', 'private', 'consul.key'
+default['consul']['config']['path'] = join_path config_prefix_path, node['os'] == 'windows' ? 'consul.json' : 'consul.conf'
+default['consul']['config']['data_dir'] = join_path data_prefix_path, node['os'] == 'windows' ? 'data' : ''
+default['consul']['config']['ca_file'] = join_path config_prefix_path, 'ssl', 'CA', 'ca.crt'
+default['consul']['config']['cert_file'] = join_path config_prefix_path, 'ssl', 'certs', 'consul.crt'
+default['consul']['config']['key_file'] = join_path config_prefix_path, 'ssl', 'private', 'consul.key'
 
 default['consul']['config']['client_addr'] = '0.0.0.0'
 default['consul']['config']['ports'] = {
@@ -32,8 +32,8 @@ default['consul']['config']['ports'] = {
 
 default['consul']['diplomat_version'] = nil
 
-default['consul']['service']['config_dir'] = join_path prefix_path, 'conf.d'
-default['consul']['service']['data_dir'] = join_path prefix_path, 'data'
+default['consul']['service']['config_dir'] = join_path config_prefix_path, node['os'] == 'windows' ? 'conf.d' : 'consul.d'
+default['consul']['service']['data_dir'] = default['consul']['config']['data_dir']
 
 default['consul']['service']['install_method'] = 'binary'
 default['consul']['service']['binary_url'] = "https://releases.hashicorp.com/consul/%{version}/%{filename}.zip" # rubocop:disable Style/StringLiterals

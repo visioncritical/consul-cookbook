@@ -15,17 +15,18 @@ end
   end
 end
 
-#describe command('/usr/local/bin/consul members -detailed') do
-#  its(:exit_status) { should eq 0 }
-#  its(:stdout) { should match %r{\balive\b} }
-#  its(:stdout) { should match %r{\brole=consul\b} }
-#  its(:stdout) { should match %r{\bbootstrap=1\b} }
-#  its(:stdout) { should match %r{\bdc=fortmeade\b} }
-#end
+describe command('& "C:\Program Files\consul\consul.exe" members -detailed') do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should match %r{\balive\b} }
+  its(:stdout) { should match %r{\brole=consul\b} }
+  its(:stdout) { should match %r{\bbootstrap=1\b} }
+  its(:stdout) { should match %r{\bdc=fortmeade\b} }
+end
 
 config_file = 'C:\Program Files\consul\consul.json'
-config_dir = 'C:\Program Files\consul\conf.d'
-data_dir = 'C:\Program Files\consul\data'
+config_dir  = 'C:\Program Files\consul\conf.d'
+data_dir    = 'C:\Program Files\consul\data'
+
 describe file(config_file) do
   it { should be_file }
 #  it { should be_owned_by     'consul' }

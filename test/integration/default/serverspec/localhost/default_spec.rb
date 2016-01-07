@@ -29,12 +29,10 @@ describe command('/usr/local/bin/consul members -detailed') do
   its(:stdout) { should match %r{\bdc=fortmeade\b} }
 end
 
-#config_file = '/etc/consul.conf'
-#config_dir = '/etc/consul.d'
-#data_dir = '/var/lib/consul'
-config_file = '/etc/consul/consul.json'
-config_dir = '/etc/consul/conf.d'
-data_dir = '/etc/consul/data'
+config_file = '/etc/consul.conf'
+config_dir  = '/etc/consul.d'
+data_dir    = '/var/lib/consul'
+
 describe file(config_file) do
   it { should be_file }
   it { should be_owned_by     'consul' }
