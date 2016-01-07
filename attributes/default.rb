@@ -14,8 +14,16 @@ default['consul']['service_group'] = 'consul'
 default['consul']['config']['bag_name'] = 'secrets'
 default['consul']['config']['bag_item'] = 'consul'
 
-default['consul']['config']['path'] = join_path config_prefix_path, node['os'] == 'windows' ? 'consul.json' : 'consul.conf'
-default['consul']['config']['data_dir'] = join_path data_prefix_path, node['os'] == 'windows' ? 'data' : ''
+if node['os'] == 'windows'
+  config_file_name = 'consul.json'
+  config_dir_name  = 'conf.d'
+else
+  config_file_name = 'consul.conf'
+  config_dir_name  = 'consul.d'
+end
+
+default['consul']['config']['path'] = join_path config_prefix_path, config_file_name
+default['consul']['config']['data_dir'] = data_path
 default['consul']['config']['ca_file'] = join_path config_prefix_path, 'ssl', 'CA', 'ca.crt'
 default['consul']['config']['cert_file'] = join_path config_prefix_path, 'ssl', 'certs', 'consul.crt'
 default['consul']['config']['key_file'] = join_path config_prefix_path, 'ssl', 'private', 'consul.key'
@@ -32,7 +40,7 @@ default['consul']['config']['ports'] = {
 
 default['consul']['diplomat_version'] = nil
 
-default['consul']['service']['config_dir'] = join_path config_prefix_path, node['os'] == 'windows' ? 'conf.d' : 'consul.d'
+default['consul']['service']['config_dir'] = join_path config_prefix_path, config_dir_name
 default['consul']['service']['data_dir'] = default['consul']['config']['data_dir']
 
 default['consul']['service']['install_method'] = 'binary'
