@@ -65,6 +65,18 @@ module ConsulCookbook
       # @!attribute config_dir
       # @return [String]
       attribute(:config_dir, kind_of: String, default: lazy { node['consul']['config']['config_dir'] })
+
+      # @!attribute stdout_path
+      # @return [String]
+      attribute(:stdout_path, kind_of: String, default: lazy { node['consul']['service']['stdout_path'] })
+
+      # @!attribute stderr_path
+      # @return [String]
+      attribute(:stderr_path, kind_of: String, default: lazy { node['consul']['service']['stderr_path'] })
+
+      # @!attribute logrotate_frequency
+      # @return [String]
+      attribute(:logrotate_frequency, kind_of: Integer, default: lazy { node['consul']['service']['logrotate_frequency'] })
     end
   end
 end

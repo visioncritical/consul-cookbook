@@ -6,6 +6,7 @@
 #
 require 'poise'
 require_relative 'helpers'
+require 'pathname'
 
 module ConsulCookbook
   module Provider
@@ -40,14 +41,23 @@ module ConsulCookbook
             end
           end
 
+          [::File.dirname(new_resource.stdout_path), ::File.dirname(new_resource.stderr_path)].each do |dirname|
+            directory dirname do
+              recursive true
+              # owner new_resource.user
+              # group new_resource.group
+              # mode '0755'
+            end
+          end
+
           nssm 'consul' do
             action :install
             program join_path(new_resource.install_path, 'consul.exe')
             params(
               AppDirectory: new_resource.data_dir,
-              AppStdout: join_path(new_resource.install_path, 'stdout.log'),
-              AppStderr: join_path(new_resource.install_path, 'error.log'),
-              AppRotateSeconds: 86_400,
+              AppStdout: new_resource.stdout_path,
+              AppStderr: new_resource.stderr_path,
+              AppRotateSeconds: new_resource.logrotate_frequency,
               AppRotateFiles: 1
             )
             args command(new_resource.config_file, new_resource.config_dir)

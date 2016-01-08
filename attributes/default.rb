@@ -40,6 +40,12 @@ default['consul']['service']['binary_url'] = "https://releases.hashicorp.com/con
 
 default['consul']['service']['source_url'] = 'https://github.com/hashicorp/consul'
 
+if node['os'] == 'windows'
+  default['consul']['service']['stdout_path'] = join_path prefix_path, 'stdout.log'
+  default['consul']['service']['stderr_path'] = join_path prefix_path, 'stderr.log'
+  default['consul']['service']['logrotate_frequency'] = 86_400
+end
+
 default['consul']['version'] = '0.6.0'
 default['consul']['checksums'] = {
   'consul_0.5.0_darwin_amd64'  => '24d9758c873e9124e0ce266f118078f87ba8d8363ab16c2e59a3cd197b77e964',
