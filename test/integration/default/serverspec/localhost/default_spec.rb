@@ -29,7 +29,7 @@ describe command('/usr/local/bin/consul members -detailed') do
   its(:stdout) { should match %r{\bdc=fortmeade\b} }
 end
 
-config_file = '/etc/consul.conf'
+config_file = '/etc/consul.json'
 config_dir  = '/etc/consul.d'
 data_dir    = '/var/lib/consul'
 

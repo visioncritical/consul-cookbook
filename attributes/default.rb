@@ -15,14 +15,12 @@ default['consul']['config']['bag_name'] = 'secrets'
 default['consul']['config']['bag_item'] = 'consul'
 
 if node['os'] == 'windows'
-  config_file_name = 'consul.json'
   config_dir_name  = 'conf.d'
 else
-  config_file_name = 'consul.conf'
   config_dir_name  = 'consul.d'
 end
 
-default['consul']['config']['path'] = join_path config_prefix_path, config_file_name
+default['consul']['config']['path'] = join_path config_prefix_path, 'consul.json'
 default['consul']['config']['data_dir'] = data_path
 default['consul']['config']['ca_file'] = join_path config_prefix_path, 'ssl', 'CA', 'ca.crt'
 default['consul']['config']['cert_file'] = join_path config_prefix_path, 'ssl', 'certs', 'consul.crt'
